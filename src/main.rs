@@ -7,13 +7,14 @@ use s3::{Bucket, Region};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    let region = env::var("REGION").unwrap_or_else(|_e| "region".to_string());
     let endpoint = env::var("ENDPOINT").expect("ENDPOINT not found");
     let access_key = env::var("ACCESS_KEY").expect("ACCESS_KEY not found");
     let secret_key = env::var("SECRET_KEY").expect("SECRET_KEY not found");
     let bucket_name = env::var("BUCKET_NAME").expect("BUCKET_NAME not found");
     
     let region = Region::Custom {
-        region: "region".to_owned(),
+        region,
         endpoint,
     };
     let credentials = Credentials::new(Some(&access_key), Some(&secret_key), None, None, None).expect("Credentials init error");

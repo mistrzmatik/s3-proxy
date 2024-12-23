@@ -1,4 +1,4 @@
-FROM rust:1.82.0-alpine3.20 AS build
+FROM rust:1.83.0-alpine3.20 AS build
 ENV RUSTFLAGS="-C target-feature=-crt-static"
 RUN apk add --no-cache musl-dev openssl-dev
 WORKDIR /app
